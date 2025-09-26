@@ -28,27 +28,6 @@ export abstract class BasePage {
   }
 
   /**
-   * Get the page title
-   */
-  async getTitle(): Promise<string> {
-    return await this.page.title();
-  }
-
-  /**
-   * Get the current URL
-   */
-  getCurrentUrl(): string {
-    return this.page.url();
-  }
-
-  /**
-   * Take a screenshot
-   */
-  async takeScreenshot(name: string): Promise<void> {
-    await this.page.screenshot({ path: `screenshots/${name}.png`, fullPage: true });
-  }
-
-  /**
    * Wait for an element to be visible
    */
   async waitForElement(locator: Locator, timeout: number = 30000): Promise<void> {
@@ -91,24 +70,4 @@ export abstract class BasePage {
     }
   }
 
-  /**
-   * Scroll to element
-   */
-  async scrollToElement(locator: Locator): Promise<void> {
-    await locator.scrollIntoViewIfNeeded();
-  }
-
-  /**
-   * Verify page title
-   */
-  async verifyTitle(expectedTitle: string): Promise<void> {
-    await expect(this.page).toHaveTitle(expectedTitle);
-  }
-
-  /**
-   * Verify URL contains text
-   */
-  async verifyUrlContains(text: string): Promise<void> {
-    expect(this.getCurrentUrl()).toContain(text);
-  }
 }

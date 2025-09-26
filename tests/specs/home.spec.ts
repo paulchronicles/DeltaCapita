@@ -5,7 +5,7 @@ import {TestHelpers} from "../../utils/TestHelpers";
 import {TestDataGenerator} from '../../utils/TestDataGenerator';
 
 
-test.describe('Home Page Tests', () => {
+test.describe('Room Booking Tests', () => {
   let browser: Browser;
   let context: BrowserContext;
   let page: Page;
@@ -71,14 +71,14 @@ test.describe('Home Page Tests', () => {
     // Ensure we're on the reservation page with calendar visible
     await expect(doubleRoomPage.isCalendarVisible()).resolves.toBeTruthy();
 
-    // Select check-in and check-out dates by dragging from day 16 to day 19 (3 nights)
-    await doubleRoomPage.selectFromDay16ToDay18();
+    // Select check-in and check-out dates by dragging from day 16 to day 19
+    await doubleRoomPage.selectFromDay16ToDay19();
 
     //Verify the event bar labelled "Selected" appears
     const selectedEvent = doubleRoomPage.selectedEvent;
     await expect(selectedEvent).toBeVisible();
 
-    //Scroll to Summary
+    //Scroll down
     await  TestHelpers.scrollDown(page, 500);
 
     // Verify price summary is displayed
@@ -103,7 +103,7 @@ test.describe('Home Page Tests', () => {
     await doubleRoomPage.clickReserveNowButton();
     await doubleRoomPage.clickReserveNowButton();
 
-    //Verify validation error
+    //Verify validation error for first and lastname (this assumes if these two show all others are present as well)
     await expect(firstNameValidationError).resolves.toBeTruthy();
     await expect(lastNameValidationError).resolves.toBeTruthy();
 
